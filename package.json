@@ -1,0 +1,15 @@
+{
+  "name": "candyqueenbakerybot",
+  "version": "1.0.0",
+  "description": "Bot for ordering handmade candies",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "telegram",
+    "bot"
+  ],
+  "author": "mykhailo.semeniuk",
+  "license": "ISC"
+}
