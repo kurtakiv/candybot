@@ -1,5 +1,6 @@
 // const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
+const telegraf = require('telegraf');
 let response;
 
 /**
@@ -14,20 +15,45 @@ let response;
  * @returns {Object} object - API Gateway Lambda Proxy Output Format
  * 
  */
-exports.lambdaHandler = async (event, context) => {
+let bot = new telegraf(`811224433:AAHV4v_LHyaR5WGQ-V18xoSyrr5Hnc2Lcvs`,{
+    webhookReply: true
+});
+
+bot.hears('hi', ctx => {
+    console.warn('===============', "dd")
+    ctx.reply('Hey there!')
+});
+
+bot.on('text', (ctx) =>{
+    ctx.reply('Hello World')});
+
+bot.command('sraka', (ctx) => {
+    console.warn("+++++++++++++");
+    ctx.reply('Hello1')
+});
+
+
+exports.lambdaHandler = async (event, context,callback) => {
+    response = {
+        'statusCode': 200,
+        'body': JSON.stringify({
+            message: 'hello world 1',
+            // location: ret.data.trim()
+        })
+    };
+
     try {
-        // const ret = await axios(url);
-        response = {
-            'statusCode': 200,
-            'body': JSON.stringify({
-                message: 'hello world 1',
-                // location: ret.data.trim()
-            })
-        }
+       await bot.handleUpdate(JSON.parse(event.body)).then(
+            function (r) {
+                console.warn('====', 'REQUEST')
+            }
+        ).catch(function (e) {
+            console.warn('-------', e)
+        })
     } catch (err) {
         console.log(err);
-        return err;
+        callback(err)
     }
-
-    return response
+     callback(null,response)
+    return  response;
 };

@@ -9,7 +9,8 @@ Description: >
 Globals:
   Function:
     Timeout: 3
-
+Auth:
+  Authorizer: 'NONE'
 Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -22,7 +23,12 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /candybot
-            Method: get
+            Method: POST
+        HelloWorldGet:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /candybot
+            Method: GET
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
